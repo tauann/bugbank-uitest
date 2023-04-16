@@ -1,0 +1,26 @@
+git
+# Intellij
+.idea/
+.iml/
+.iml
+
+# Java
+.dccache
+src/main/resources/ambientes/local/config.properties
+
+# Maven
+logs/
+target/
+/bin/
+
+# Eclipse
+.classpath
+.project
+.settings
+.factorypath
+
+debug.log
+digiagro-proposta-cpr-it.iml
+.gradle/
+out/
+build/
