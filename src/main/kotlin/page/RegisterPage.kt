@@ -4,9 +4,9 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.FindBy
 
-class RegistrarPage(driver: WebDriver) : BasePage(driver) {
+class RegisterPage(driver: WebDriver) : BasePage(driver) {
 
-    @FindBy(id = "#btnBackButton")
+    @FindBy(css = "#btnBackButton")
     private lateinit var backToLoginLink: WebElement
 
     @FindBy(css = "input[name='email']")
@@ -21,7 +21,7 @@ class RegistrarPage(driver: WebDriver) : BasePage(driver) {
     @FindBy(css = "input[name='passwordConfirmation']")
     private lateinit var passwordConfirmationButton: WebElement
 
-    @FindBy(id = "#toggleAddBalance")
+    @FindBy(css = "#toggleAddBalance")
     private lateinit var createAccountWithBalanceToggle: WebElement
 
     @FindBy(css = "button[type='submit']")
