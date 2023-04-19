@@ -2,6 +2,8 @@ package utils
 
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeOptions
+
 
 object DriverManager {
 
@@ -18,8 +20,16 @@ object DriverManager {
     }
 
     private fun setupDriver() {
-        driver = WebDriverManager.chromedriver().create()
+        val options = chromeOptions()
+        driver = WebDriverManager.chromedriver().capabilities(options).create()
         driver!!.manage().window().maximize()
     }
+
+    private fun chromeOptions(): ChromeOptions {
+        val options = ChromeOptions()
+        if (ENABLE_HEADLESS) options.addArguments("--headless=new")
+        return options
+    }
+
 
 }
