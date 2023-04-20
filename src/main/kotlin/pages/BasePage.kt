@@ -1,55 +1,24 @@
 package pages
 
-import org.openqa.selenium.By
-import org.openqa.selenium.ElementClickInterceptedException
-import org.openqa.selenium.JavascriptExecutor
-import org.openqa.selenium.WebElement
-import org.openqa.selenium.support.pagefactory.ByChained
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait
-import utils.DriverManager.getDriver
-import java.time.Duration
+import utils.PlaywrightManager.page
 
 abstract class BasePage {
 
-    private val wait = WebDriverWait(getDriver(), Duration.ofSeconds(10))
-
-
-    protected fun click(by: By, wait: Boolean = true) {
-        if (wait) waitVisibilityOf(by)
-        val element = getDriver().findElement(by)
-        try {
-            element.click()
-        } catch (_: ElementClickInterceptedException) {
-            jsClick(element)
-        }
+    protected fun click(locator: String) {
+        page!!.locator(locator).click()
     }
 
-    protected fun type(text: String, by: By) {
-        waitVisibilityOf(by)
-        getDriver().findElement(by).clear()
-        getDriver().findElement(by).sendKeys(text)
+    protected fun type(text: String, locator: String) {
+        page!!.locator(locator).clear()
+        page!!.locator(locator).fill(text)
     }
 
-    protected fun getText(by: By): String {
-        waitVisibilityOf(by)
-        return getDriver().findElement(by).text
-    }
+    protected fun getText(locator: String): String = page!!.locator(locator).textContent().trim()
 
-    protected fun getFieldError(by: By): String {
-        val errorBy = By.xpath("./..//p")
-        val chainedBy = ByChained(by, errorBy)
-        waitVisibilityOf(chainedBy)
-        return getText(chainedBy)
-    }
-
-    protected fun waitVisibilityOf(by: By) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by))
-    }
-
-    private fun jsClick(element: WebElement) {
-        val executor = getDriver() as JavascriptExecutor
-        executor.executeScript("arguments[0].click();", element)
+    protected fun getFieldError(locator: String): String {
+        val errorLocator = "//..//p"
+        val chainedLocator = "$locator >> $errorLocator"
+        return getText(chainedLocator)
     }
 
 }

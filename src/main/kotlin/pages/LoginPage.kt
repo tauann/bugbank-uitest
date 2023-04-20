@@ -1,22 +1,21 @@
 package pages
 
-import org.openqa.selenium.By
+import utils.PlaywrightManager.page
 
 private const val CARD = ".card__login"
 
 class LoginPage : BasePage() {
 
-    private val emailInput = By.cssSelector("$CARD input[name='email']")
-    private val passwordInput = By.cssSelector("$CARD input[name='password']")
-    private val accessButton = By.cssSelector("$CARD .login__buttons > button[type='submit']")
-    private val registerButton = By.cssSelector("$CARD .login__buttons > button[type='button']")
+    private val emailInput = "$CARD input[name='email']"
+    private val passwordInput = "$CARD input[name='password']"
+    private val registerButton = "$CARD .login__buttons > button[type='button']"
 
 
     fun typeEmail(email: String) = type(email, emailInput)
 
     fun typePassword(password: String) = type(password, passwordInput)
 
-    fun clickAccess() = click(accessButton)
+    fun submit() = page!!.locator(passwordInput).press("Enter")
 
     fun clickRegister() = click(registerButton)
 

@@ -1,18 +1,17 @@
 package pages
 
-import org.openqa.selenium.By
-import utils.DriverManager.getDriver
+import utils.PlaywrightManager.page
 
 class StatementPage : BasePage() {
 
-    private val transferDescriptionText = By.cssSelector("[class*='bank-statement__Container'] #textDescription")
+    private val transferDescriptionText = "[class*='bank-statement__Container'] #textDescription"
 
 
     fun getTransferDescriptions(): MutableList<String> {
-        waitVisibilityOf(transferDescriptionText)
-        val elements = getDriver().findElements(transferDescriptionText)
+        page!!.locator(transferDescriptionText).last().waitFor()
+        val locators = page!!.locator(transferDescriptionText).all()
         val descriptions = mutableListOf<String>()
-        elements.mapTo(descriptions) { it.text }
+        locators.mapTo(descriptions) { it.textContent() }
         return descriptions
     }
 

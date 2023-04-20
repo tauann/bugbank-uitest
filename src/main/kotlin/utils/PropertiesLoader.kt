@@ -3,7 +3,7 @@ package utils
 import java.io.FileInputStream
 import java.util.*
 
-val ENABLE_HEADLESS by lazy { get("browser.enable.headless").toBoolean() }
+val BROWSER_HEADLESS by lazy { get("browser.headless").toBoolean() }
 
 private val properties = Properties()
 

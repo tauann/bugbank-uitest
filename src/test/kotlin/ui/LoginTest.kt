@@ -15,7 +15,7 @@ class LoginTest : BaseTest() {
         login.run {
             typeEmail("invalid@invalid.com")
             typePassword("invalid")
-            clickAccess()
+            submit()
         }
 
         alert.getBodyText() shouldBeEqualTo "Usuário ou senha inválido.\nTente novamente ou verifique suas informações!"
@@ -26,16 +26,16 @@ class LoginTest : BaseTest() {
         val account = registerAUser(USER_LOGIN_EMAIL, USER_LOGIN_NAME, USER_PASSWORD)["account"]
 
         login.run {
-            clickAccess()
+            submit()
             getErrorEmail() shouldBeEqualTo REQUIRED_FIELD_ERROR
             getErrorPassword() shouldBeEqualTo REQUIRED_FIELD_ERROR
 
             typeEmail(USER_LOGIN_EMAIL)
-            clickAccess()
+            submit()
             getErrorPassword() shouldBeEqualTo REQUIRED_FIELD_ERROR
 
             typePassword(USER_PASSWORD)
-            clickAccess()
+            submit()
         }
 
         home.run {
