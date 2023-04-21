@@ -7,17 +7,17 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.pagefactory.ByChained
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
-import utils.DriverManager.getDriver
+import utils.DriverManager.driver
 import java.time.Duration
 
 abstract class BasePage {
 
-    private val wait = WebDriverWait(getDriver(), Duration.ofSeconds(10))
+    private val wait = WebDriverWait(driver, Duration.ofSeconds(10))
 
 
     protected fun click(by: By, wait: Boolean = true) {
         if (wait) waitVisibilityOf(by)
-        val element = getDriver().findElement(by)
+        val element = driver!!.findElement(by)
         try {
             element.click()
         } catch (_: ElementClickInterceptedException) {
@@ -27,13 +27,13 @@ abstract class BasePage {
 
     protected fun type(text: String, by: By) {
         waitVisibilityOf(by)
-        getDriver().findElement(by).clear()
-        getDriver().findElement(by).sendKeys(text)
+        driver!!.findElement(by).clear()
+        driver!!.findElement(by).sendKeys(text)
     }
 
     protected fun getText(by: By): String {
         waitVisibilityOf(by)
-        return getDriver().findElement(by).text
+        return driver!!.findElement(by).text
     }
 
     protected fun getFieldError(by: By): String {
@@ -48,7 +48,7 @@ abstract class BasePage {
     }
 
     private fun jsClick(element: WebElement) {
-        val executor = getDriver() as JavascriptExecutor
+        val executor = driver as JavascriptExecutor
         executor.executeScript("arguments[0].click();", element)
     }
 

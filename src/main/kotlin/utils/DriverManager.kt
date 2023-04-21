@@ -7,15 +7,15 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 object DriverManager {
 
-    private var driver: WebDriver? = null
-
-    fun getDriver(): WebDriver {
-        if (driver == null) setupDriver()
-        return driver!!
-    }
+    var driver: WebDriver? = null
+        get() {
+            if (field == null) setupDriver()
+            return field
+        }
+        private set
 
     fun closeDriver() {
-        driver!!.quit()
+        driver?.quit()
         driver = null
     }
 
@@ -27,9 +27,8 @@ object DriverManager {
 
     private fun chromeOptions(): ChromeOptions {
         val options = ChromeOptions()
-        if (ENABLE_HEADLESS) options.addArguments("--headless=new")
+        if (BROWSER_HEADLESS) options.addArguments("--headless=new")
         return options
     }
-
 
 }

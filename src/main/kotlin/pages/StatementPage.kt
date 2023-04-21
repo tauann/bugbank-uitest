@@ -1,7 +1,7 @@
 package pages
 
 import org.openqa.selenium.By
-import utils.DriverManager.getDriver
+import utils.DriverManager.driver
 
 class StatementPage : BasePage() {
 
@@ -10,7 +10,7 @@ class StatementPage : BasePage() {
 
     fun getTransferDescriptions(): MutableList<String> {
         waitVisibilityOf(transferDescriptionText)
-        val elements = getDriver().findElements(transferDescriptionText)
+        val elements = driver!!.findElements(transferDescriptionText)
         val descriptions = mutableListOf<String>()
         elements.mapTo(descriptions) { it.text }
         return descriptions

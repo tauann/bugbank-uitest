@@ -1,7 +1,5 @@
 package ui
 
-import utils.DriverManager.closeDriver
-import utils.DriverManager.getDriver
 import constants.ACCOUNT_PATTERN
 import constants.USER_LOGIN_EMAIL
 import constants.USER_LOGIN_NAME
@@ -9,6 +7,8 @@ import constants.USER_PASSWORD
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import pages.*
+import utils.DriverManager.closeDriver
+import utils.DriverManager.driver
 
 abstract class BaseTest {
 
@@ -21,7 +21,7 @@ abstract class BaseTest {
 
     @BeforeEach
     fun setUp() {
-        getDriver().navigate().to("https://bugbank.netlify.app/")
+        driver?.navigate()?.to("https://bugbank.netlify.app/")
 
         login = LoginPage()
         register = RegisterUserPage()
@@ -75,7 +75,7 @@ abstract class BaseTest {
         login.run {
             typeEmail(USER_LOGIN_EMAIL)
             typePassword(USER_PASSWORD)
-            clickAccess()
+            submit()
         }
     }
 
