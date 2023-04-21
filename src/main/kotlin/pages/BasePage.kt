@@ -15,10 +15,6 @@ abstract class BasePage {
 
     protected fun getText(locatorString: String): String = page!!.locator(locatorString).textContent().trim()
 
-    protected fun getFieldError(locatorString: String): String {
-        val errorLocator = "//..//p"
-        val chainedLocator = "$locatorString >> $errorLocator"
-        return getText(chainedLocator)
-    }
+    protected fun getFieldError(locatorString: String): String = getText("$locatorString >> //..//p")
 
 }
