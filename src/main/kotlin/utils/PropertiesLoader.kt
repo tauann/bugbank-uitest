@@ -4,6 +4,7 @@ import java.io.FileInputStream
 import java.util.*
 
 val BROWSER_HEADLESS by lazy { get("browser.headless").toBoolean() }
+val PAGE_TIMEOUT by lazy { get("page.timeout")!!.toDouble() }
 
 private val properties = Properties()
 

@@ -8,7 +8,7 @@ object PlaywrightManager {
 
     var page: Page? = null
         get() {
-            if (field == null) setupPW()
+            if (field == null) setupPlaywright()
             return field
         }
         private set
@@ -18,12 +18,14 @@ object PlaywrightManager {
         page = null
     }
 
-    private fun setupPW() {
+    private fun setupPlaywright() {
         val pw = Playwright.create().chromium()
         val browser = pw.launch(chromiumOptions())
         val context = browser.newContext()
         page = context.newPage()
+        page?.setDefaultTimeout(PAGE_TIMEOUT)
     }
 
-    private fun chromiumOptions(): LaunchOptions = LaunchOptions().setHeadless(BROWSER_HEADLESS)
+    private fun chromiumOptions() = LaunchOptions().setHeadless(BROWSER_HEADLESS)
+
 }
