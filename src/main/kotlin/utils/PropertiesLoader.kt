@@ -3,7 +3,8 @@ package utils
 import java.io.FileInputStream
 import java.util.*
 
-val BROWSER_HEADLESS by lazy { get("browser.enable.headless").toBoolean() }
+val HEADLESS by lazy { get("headless").toBoolean() }
+val TIMEOUT by lazy { get("timeout")!!.toLong() }
 
 private val properties = Properties()
 

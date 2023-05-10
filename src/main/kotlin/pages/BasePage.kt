@@ -8,12 +8,10 @@ import org.openqa.selenium.support.pagefactory.ByChained
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import utils.DriverManager.driver
+import utils.TIMEOUT
 import java.time.Duration
 
 abstract class BasePage {
-
-    private val wait = WebDriverWait(driver, Duration.ofSeconds(10))
-
 
     protected fun click(by: By, wait: Boolean = true) {
         if (wait) waitVisibilityOf(by)
@@ -44,6 +42,7 @@ abstract class BasePage {
     }
 
     protected fun waitVisibilityOf(by: By) {
+        val wait = WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
         wait.until(ExpectedConditions.visibilityOfElementLocated(by))
     }
 

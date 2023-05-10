@@ -27,7 +27,7 @@ object DriverManager {
 
     private fun chromeOptions(): ChromeOptions {
         val options = ChromeOptions()
-        if (BROWSER_HEADLESS) options.addArguments("--headless=new")
+        if (HEADLESS) options.addArguments("--headless=new")
         return options
     }
 
