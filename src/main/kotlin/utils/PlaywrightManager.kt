@@ -23,9 +23,8 @@ object PlaywrightManager {
         val browser = pw.launch(chromiumOptions())
         val context = browser.newContext()
         page = context.newPage()
-        page?.setDefaultTimeout(PAGE_TIMEOUT)
     }
 
-    private fun chromiumOptions() = LaunchOptions().setHeadless(BROWSER_HEADLESS)
+    private fun chromiumOptions() = LaunchOptions().setHeadless(true)
 
 }
