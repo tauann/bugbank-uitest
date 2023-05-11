@@ -14,6 +14,7 @@ abstract class BaseTest {
     protected lateinit var alertPage: AlertPage
     protected lateinit var homePage: HomePage
     protected lateinit var transferPage: TransferPage
+    private lateinit var registerPage: RegisterPage
 
     @BeforeEach
     fun setupPages() {
@@ -21,6 +22,7 @@ abstract class BaseTest {
         alertPage = AlertPage()
         homePage = HomePage()
         transferPage = TransferPage()
+        registerPage = RegisterPage()
     }
 
     protected fun registerUser(
@@ -30,7 +32,8 @@ abstract class BaseTest {
         withBalance: Boolean = true,
     ): Map<String, String> {
         loginPage.clickRegister()
-        RegisterPage().register(email, name, password, withBalance)
+        registerPage.register(email, name, password, withBalance)
+
         val alertText: String = alertPage.getAlertText()
         return mapAccount(alertText)
     }
