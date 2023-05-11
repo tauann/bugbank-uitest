@@ -9,11 +9,12 @@ import org.junit.jupiter.api.Test
 
 class TransferTest : BaseTest() {
 
+    private val transferAmount = "100.00"
     private lateinit var destinationAccount: Map<String, String>
 
     @BeforeEach
     fun preConditions() {
-        destinationAccount = registerUser(TRANSFER_EMAIL, TRANSFER_NAME, PASSWORD, false)
+        destinationAccount = registerUser("transfer@account.com", "Transfer Account", PASSWORD, false)
     }
 
     @Test
@@ -21,7 +22,7 @@ class TransferTest : BaseTest() {
         loginUser()
 
         homePage.clickTranfer()
-        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, TRANSFER_AMOUNT)
+        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, transferAmount)
 
         alertPage.getAlertText() shouldBeEqualTo "Transferencia realizada com sucesso"
 
@@ -35,7 +36,7 @@ class TransferTest : BaseTest() {
         loginUser()
 
         homePage.clickTranfer()
-        transferPage.makeTransfer("999", "9", TRANSFER_AMOUNT)
+        transferPage.makeTransfer("999", "9", transferAmount)
 
         alertPage.getAlertText() shouldBeEqualTo "Conta inválida ou inexistente"
     }
@@ -45,7 +46,7 @@ class TransferTest : BaseTest() {
         loginUser(false)
 
         homePage.clickTranfer()
-        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, TRANSFER_AMOUNT)
+        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, transferAmount)
 
         alertPage.getAlertText() shouldBeEqualTo "Você não tem saldo suficiente para essa transação"
     }

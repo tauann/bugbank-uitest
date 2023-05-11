@@ -9,7 +9,7 @@ class HomePage : BasePage() {
     private val balanceText = "$CONTAINER #textBalance"
     private val transferButton = "$CONTAINER #btn-TRANSFERÊNCIA"
 
-    fun getUserName(): String = getText(nameText)
+    fun getUserName() = getText(nameText)
 
     fun getAccountNumber() = getText(accountNumberText)
 

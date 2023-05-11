@@ -5,7 +5,6 @@ import constants.LOGIN_EMAIL
 import constants.LOGIN_NAME
 import constants.PASSWORD
 import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldContain
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -22,7 +21,7 @@ class LoginTest : BaseTest() {
     fun `Should validate that the user can login with the correct credentials`() {
         loginPage.doLogin(LOGIN_EMAIL, PASSWORD)
 
-        homePage.getUserName() shouldContain LOGIN_NAME
+        homePage.getUserName() shouldBeEqualTo "Olá $LOGIN_NAME,"
         homePage.getAccountNumber() shouldBeEqualTo account
     }
 

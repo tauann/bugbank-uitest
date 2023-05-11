@@ -1,4 +1,3 @@
-import constants.ACCOUNT_PATTERN
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import pages.*
@@ -42,7 +41,8 @@ abstract class BaseTest {
     }
 
     private fun mapAccount(alertText: String): Map<String, String> {
-        val account = Regex(ACCOUNT_PATTERN).find(alertText)!!.value
+        val pattern = "\\d+-\\d"
+        val account = Regex(pattern).find(alertText)!!.value
         return mapOf(
             "account" to account,
             "number" to account.substringBeforeLast("-"),
