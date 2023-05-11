@@ -4,11 +4,9 @@ import org.openqa.selenium.By
 import org.openqa.selenium.ElementClickInterceptedException
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.support.pagefactory.ByChained
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import utils.DriverManager.driver
-import utils.TIMEOUT
 import java.time.Duration
 
 abstract class BasePage {
@@ -34,15 +32,8 @@ abstract class BasePage {
         return driver!!.findElement(by).text
     }
 
-    protected fun getFieldError(by: By): String {
-        val errorBy = By.xpath("./..//p")
-        val chainedBy = ByChained(by, errorBy)
-        waitVisibilityOf(chainedBy)
-        return getText(chainedBy)
-    }
-
     protected fun waitVisibilityOf(by: By) {
-        val wait = WebDriverWait(driver, Duration.ofSeconds(TIMEOUT))
+        val wait = WebDriverWait(driver, Duration.ofSeconds(10))
         wait.until(ExpectedConditions.visibilityOfElementLocated(by))
     }
 

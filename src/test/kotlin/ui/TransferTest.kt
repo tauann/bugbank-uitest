@@ -1,69 +1,58 @@
 package ui
 
-import constants.USER_PASSWORD
-import constants.USER_TRANSFER_EMAIL
-import constants.USER_TRANSFER_NAME
+import constants.*
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldContain
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class TransferTest : BaseTest() {
 
-    @Test
-    fun `Should validate error when transferring value from an account with no balance to a valid account`() {
-        val account = registerAUser(USER_TRANSFER_EMAIL, USER_TRANSFER_NAME, USER_PASSWORD, false)
+    private lateinit var destinationAccount: Map<String, String>
 
-        loginAUser(false)
-        home.clickTranfer()
-
-        transfer.run {
-            typeAccountNumber(account["number"]!!)
-            typeDigit(account["digit"]!!)
-            typeTransferValue("1000.00")
-            clickTransferNow()
-        }
-
-        alert.getBodyText() shouldBeEqualTo "Você não tem saldo suficiente para essa transação"
+    @BeforeEach
+    fun preConditions() {
+        destinationAccount = registerUser(TRANSFER_EMAIL, TRANSFER_NAME, PASSWORD, false)
     }
 
     @Test
-    fun `Should validate error when transferring value from an account with balance to a invalid account`() {
-        loginAUser()
-        home.clickTranfer()
+    fun `Should validate that the user can transfer value from an account with balance to a valid account`() {
+        loginUser()
 
-        transfer.run {
-            typeAccountNumber("999")
-            typeDigit("9")
-            typeTransferValue("1000.00")
-            clickTransferNow()
-        }
+        homePage.clickTranfer()
+        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, TRANSFER_AMOUNT)
 
-        alert.getBodyText() shouldBeEqualTo "Conta inválida ou inexistente"
+        alertPage.getAlertText() shouldBeEqualTo "Transferencia realizada com sucesso"
+
+        transferPage.clickBack()
+
+        homePage.getBalanceText() shouldContain "900,00"
     }
 
     @Test
-    fun `Should validate success when transferring value from an account with balance to a valid account`() {
-        val transferValue = "100"
-        val account = registerAUser(USER_TRANSFER_EMAIL, USER_TRANSFER_NAME, USER_PASSWORD, false)
+    fun `Should validate that the user cannot transfer value from an account with balance to an invalid account`() {
+        loginUser()
 
-        loginAUser()
-        home.clickTranfer()
+        homePage.clickTranfer()
+        transferPage.makeTransfer("999", "9", TRANSFER_AMOUNT)
 
-        transfer.run {
-            typeAccountNumber(account["number"]!!)
-            typeDigit(account["digit"]!!)
-            typeTransferValue(transferValue)
-            clickTransferNow()
-        }
+        alertPage.getAlertText() shouldBeEqualTo "Conta inválida ou inexistente"
+    }
 
-        alert.run {
-            alert.getBodyText() shouldBeEqualTo "Transferencia realizada com sucesso"
-            alert.clickClose()
-        }
+    @Test
+    fun `Should validate that the user cannot transfer value from an account without balance to a valid account`() {
+        loginUser(false)
 
-        transfer.clickBack()
+        homePage.clickTranfer()
+        transferPage.makeTransfer(destinationAccount["number"]!!, destinationAccount["digit"]!!, TRANSFER_AMOUNT)
 
-        home.getBalanceText() shouldContain "900,00"
+        alertPage.getAlertText() shouldBeEqualTo "Você não tem saldo suficiente para essa transação"
+    }
+
+    private fun loginUser(withBalance: Boolean = true) {
+        registerUser(LOGIN_EMAIL, LOGIN_NAME, PASSWORD, withBalance)
+
+        loginPage.doLogin(LOGIN_EMAIL, PASSWORD)
     }
 
 }
