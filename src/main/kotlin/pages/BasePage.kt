@@ -1,9 +1,7 @@
 package pages
 
 import org.openqa.selenium.By
-import org.openqa.selenium.ElementClickInterceptedException
 import org.openqa.selenium.JavascriptExecutor
-import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import utils.DriverManager.driver
@@ -11,14 +9,16 @@ import java.time.Duration
 
 abstract class BasePage {
 
-    protected fun click(by: By, wait: Boolean = true) {
-        if (wait) waitVisibilityOf(by)
+    protected fun click(by: By) {
+        waitVisibilityOf(by)
         val element = driver!!.findElement(by)
-        try {
-            element.click()
-        } catch (_: ElementClickInterceptedException) {
-            jsClick(element)
-        }
+        element.click()
+    }
+
+    protected fun jsClick(by: By) {
+        val element = driver!!.findElement(by)
+        val executor = driver as JavascriptExecutor
+        executor.executeScript("arguments[0].click();", element)
     }
 
     protected fun type(text: String, by: By) {
@@ -32,14 +32,9 @@ abstract class BasePage {
         return driver!!.findElement(by).text
     }
 
-    protected fun waitVisibilityOf(by: By) {
+    private fun waitVisibilityOf(by: By) {
         val wait = WebDriverWait(driver, Duration.ofSeconds(10))
         wait.until(ExpectedConditions.visibilityOfElementLocated(by))
-    }
-
-    private fun jsClick(element: WebElement) {
-        val executor = driver as JavascriptExecutor
-        executor.executeScript("arguments[0].click();", element)
     }
 
 }

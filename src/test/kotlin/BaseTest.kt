@@ -1,5 +1,3 @@
-package ui
-
 import constants.ACCOUNT_PATTERN
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

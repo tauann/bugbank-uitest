@@ -1,5 +1,6 @@
-package ui
+package e2e
 
+import BaseTest
 import constants.LOGIN_EMAIL
 import constants.LOGIN_NAME
 import constants.PASSWORD

@@ -18,8 +18,8 @@ class RegisterPage : BasePage() {
         type(name, nameInput)
         type(password, passwordInput)
         type(password, passwordConfirmationInput)
-        if (withBalance) click(createAccountWithBalanceToggle, false)
-        click(registerButton)
+        if (withBalance) jsClick(createAccountWithBalanceToggle)
+        jsClick(registerButton)
     }
 
 }

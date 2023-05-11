@@ -1,5 +1,6 @@
-package ui
+package e2e
 
+import BaseTest
 import constants.*
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldContain
