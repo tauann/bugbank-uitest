@@ -1,47 +1,35 @@
 package ui
 
-import constants.REQUIRED_FIELD_ERROR
-import constants.USER_LOGIN_EMAIL
-import constants.USER_LOGIN_NAME
-import constants.USER_PASSWORD
+import constants.LOGIN_EMAIL
+import constants.LOGIN_NAME
+import constants.PASSWORD
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldContain
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class LoginTest : BaseTest() {
 
-    @Test
-    fun `Should validate error when logging in with an non-existing user`() {
-        login.run {
-            typeEmail("invalid@invalid.com")
-            typePassword("invalid")
-            submit()
-        }
+    private lateinit var account: String
 
-        alert.getBodyText() shouldBeEqualTo "Usuário ou senha inválido.\nTente novamente ou verifique suas informações!"
+    @BeforeEach
+    fun preConditions() {
+        account = registerUser(LOGIN_EMAIL, LOGIN_NAME, PASSWORD)["account"]!!
     }
 
     @Test
-    fun `Should validate success when logging in with an existing user`() {
-        val account = registerAUser(USER_LOGIN_EMAIL, USER_LOGIN_NAME, USER_PASSWORD)["account"]
+    fun `Should validate that the user can login with the correct credentials`() {
+        loginPage.doLogin(LOGIN_EMAIL, PASSWORD)
 
-        login.run {
-            submit()
-            getErrorEmail() shouldBeEqualTo REQUIRED_FIELD_ERROR
-            getErrorPassword() shouldBeEqualTo REQUIRED_FIELD_ERROR
+        homePage.getUserName() shouldContain LOGIN_NAME
+        homePage.getAccountNumber() shouldBeEqualTo account
+    }
 
-            typeEmail(USER_LOGIN_EMAIL)
-            submit()
-            getErrorPassword() shouldBeEqualTo REQUIRED_FIELD_ERROR
+    @Test
+    fun `Should validate that the user cannot login with incorrect credentials`() {
+        loginPage.doLogin(LOGIN_EMAIL, "INVALID")
 
-            typePassword(USER_PASSWORD)
-            submit()
-        }
-
-        home.run {
-            getUserName() shouldContain USER_LOGIN_NAME
-            getAccountNumber() shouldBeEqualTo account
-        }
+        alertPage.getAlertText() shouldBeEqualTo "Usuário ou senha inválido.\nTente novamente ou verifique suas informações!"
     }
 
 }

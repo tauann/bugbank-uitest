@@ -10,8 +10,6 @@ class HomePage : BasePage() {
     private val accountNumberText = By.cssSelector("$CONTAINER #textAccountNumber > span")
     private val balanceText = By.cssSelector("$CONTAINER #textBalance")
     private val transferButton = By.cssSelector("$CONTAINER #btn-TRANSFERÊNCIA")
-    private val statementButton = By.cssSelector("$CONTAINER #btn-EXTRATO")
-
 
     fun getUserName(): String = getText(nameText)
 
@@ -20,7 +18,5 @@ class HomePage : BasePage() {
     fun getBalanceText() = getText(balanceText)
 
     fun clickTranfer() = click(transferButton)
-
-    fun clickStatement() = click(statementButton)
 
 }
