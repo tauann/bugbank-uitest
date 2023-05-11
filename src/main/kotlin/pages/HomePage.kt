@@ -8,8 +8,6 @@ class HomePage : BasePage() {
     private val accountNumberText = "$CONTAINER #textAccountNumber > span"
     private val balanceText = "$CONTAINER #textBalance"
     private val transferButton = "$CONTAINER #btn-TRANSFERÊNCIA"
-    private val statementButton = "$CONTAINER #btn-EXTRATO"
-
 
     fun getUserName(): String = getText(nameText)
 
@@ -18,7 +16,5 @@ class HomePage : BasePage() {
     fun getBalanceText() = getText(balanceText)
 
     fun clickTranfer() = click(transferButton)
-
-    fun clickStatement() = click(statementButton)
 
 }

@@ -4,12 +4,13 @@ private const val CONTAINER = "[class*='styles__ContainerContent']"
 
 class AlertPage : BasePage() {
 
-    private val bodyText = "$CONTAINER #modalText"
+    private val alertText = "$CONTAINER #modalText"
     private val closeButton = "$CONTAINER #btnCloseModal"
 
-
-    fun getBodyText(): String = getText(bodyText)
-
-    fun clickClose() = click(closeButton)
+    fun getAlertText(): String {
+        val alertText = getText(alertText)
+        click(closeButton)
+        return alertText
+    }
 
 }
