@@ -11,8 +11,7 @@ abstract class BasePage {
 
     protected fun click(by: By) {
         waitVisibilityOf(by)
-        val element = driver!!.findElement(by)
-        element.click()
+        driver!!.findElement(by).click()
     }
 
     protected fun jsClick(by: By) {
@@ -29,7 +28,7 @@ abstract class BasePage {
 
     protected fun getText(by: By): String {
         waitVisibilityOf(by)
-        return driver!!.findElement(by).text
+        return driver!!.findElement(by).text.trim()
     }
 
     private fun waitVisibilityOf(by: By) {
