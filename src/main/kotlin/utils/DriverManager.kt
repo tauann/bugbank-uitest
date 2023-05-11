@@ -22,7 +22,6 @@ object DriverManager {
     private fun setupDriver() {
         val options = chromeOptions()
         driver = WebDriverManager.chromedriver().capabilities(options).create()
-        driver!!.manage().window().maximize()
     }
 
     private fun chromeOptions(): ChromeOptions {

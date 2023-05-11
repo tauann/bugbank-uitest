@@ -1,8 +1,7 @@
 package ui
 
 import constants.ACCOUNT_PATTERN
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import pages.*
 import utils.DriverManager.closeDriver
@@ -17,12 +16,18 @@ abstract class BaseTest {
     private lateinit var registerPage: RegisterPage
 
     @BeforeEach
-    fun setupPages() {
+    fun setup() {
+        driver?.navigate()?.to("https://bugbank.netlify.app/")
         loginPage = LoginPage()
         alertPage = AlertPage()
         homePage = HomePage()
         transferPage = TransferPage()
         registerPage = RegisterPage()
+    }
+
+    @AfterEach
+    fun tearDown() {
+        closeDriver()
     }
 
     protected fun registerUser(
@@ -45,20 +50,6 @@ abstract class BaseTest {
             "number" to account.substringBeforeLast("-"),
             "digit" to account.substringAfterLast("-")
         )
-    }
-
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun setUp() {
-            driver?.navigate()?.to("https://bugbank.netlify.app/")
-        }
-
-        @JvmStatic
-        @AfterAll
-        fun tearDown() {
-            closeDriver()
-        }
     }
 
 }
