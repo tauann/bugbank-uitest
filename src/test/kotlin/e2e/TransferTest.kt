@@ -1,9 +1,10 @@
 package e2e
 
 import BaseTest
-import constants.*
+import constants.LOGIN_EMAIL
+import constants.LOGIN_NAME
+import constants.PASSWORD
 import org.amshove.kluent.shouldBeEqualTo
-import org.amshove.kluent.shouldContain
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -28,7 +29,7 @@ class TransferTest : BaseTest() {
 
         transferPage.clickBack()
 
-        homePage.getBalanceText() shouldContain "900,00"
+        homePage.getBalanceText() shouldBeEqualTo "Saldo em conta R$ 900,00"
     }
 
     @Test
