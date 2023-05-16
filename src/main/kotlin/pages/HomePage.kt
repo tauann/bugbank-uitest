@@ -10,17 +10,17 @@ class HomePage : BasePage() {
     private val transferButton = "$CONTAINER #btn-TRANSFERÊNCIA"
 
     fun getUserName(): String {
-        waitForLocatorToBeVisible(nameText)
+        waitVisibilityOf(nameText)
         return getText(nameText)
     }
 
     fun getAccountNumber(): String {
-        waitForLocatorToBeVisible(accountNumberText)
+        waitVisibilityOf(accountNumberText)
         return getText(accountNumberText)
     }
 
     fun getBalanceText(): String {
-        waitForLocatorToBeVisible(balanceText)
+        waitVisibilityOf(balanceText)
         return getText(balanceText)
     }
 

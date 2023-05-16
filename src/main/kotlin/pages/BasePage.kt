@@ -15,7 +15,7 @@ abstract class BasePage {
 
     protected fun getText(locatorString: String) = page!!.locator(locatorString).textContent().trim()
 
-    protected fun waitForLocatorToBeVisible(locatorString: String) =
+    protected fun waitVisibilityOf(locatorString: String) =
         page!!.locator(locatorString).waitFor(Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE))
 
 }
