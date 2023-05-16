@@ -20,11 +20,11 @@ object PlaywrightManager {
 
     private fun setupPlaywright() {
         val pw = Playwright.create().chromium()
-        val browser = pw.launch(chromiumOptions())
+        val browser = pw.launch(launchOptions())
         val context = browser.newContext()
         page = context.newPage()
     }
 
-    private fun chromiumOptions() = LaunchOptions().setHeadless(true)
+    private fun launchOptions() = LaunchOptions().setChannel("chrome").setHeadless(true)
 
 }

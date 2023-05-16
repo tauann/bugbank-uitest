@@ -1,5 +1,7 @@
 package pages
 
+import com.microsoft.playwright.Locator
+import com.microsoft.playwright.options.WaitForSelectorState
 import utils.PlaywrightManager.page
 
 abstract class BasePage {
@@ -12,5 +14,8 @@ abstract class BasePage {
     }
 
     protected fun getText(locatorString: String) = page!!.locator(locatorString).textContent().trim()
+
+    protected fun waitForLocatorToBeVisible(locatorString: String) =
+        page!!.locator(locatorString).waitFor(Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE))
 
 }

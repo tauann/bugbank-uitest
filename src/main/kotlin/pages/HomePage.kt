@@ -9,11 +9,20 @@ class HomePage : BasePage() {
     private val balanceText = "$CONTAINER #textBalance"
     private val transferButton = "$CONTAINER #btn-TRANSFERÊNCIA"
 
-    fun getUserName() = getText(nameText)
+    fun getUserName(): String {
+        waitForLocatorToBeVisible(nameText)
+        return getText(nameText)
+    }
 
-    fun getAccountNumber() = getText(accountNumberText)
+    fun getAccountNumber(): String {
+        waitForLocatorToBeVisible(accountNumberText)
+        return getText(accountNumberText)
+    }
 
-    fun getBalanceText() = getText(balanceText)
+    fun getBalanceText(): String {
+        waitForLocatorToBeVisible(balanceText)
+        return getText(balanceText)
+    }
 
     fun clickTranfer() = click(transferButton)
 
